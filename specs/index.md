@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: page
 title: Specification
 ---
-
-# Specification
 
 The EMF/JSON format specification presents the format use to represent EMF models in JSON. This format preserves
 the specifics of EMF, e.g. object fragment identifiers, inter and cross documents references.

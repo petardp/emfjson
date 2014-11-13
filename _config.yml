@@ -1,5 +1,5 @@
 # Site settings
-title: EMF JSON
+title: emfjson
 email: g.hillairet@gmail.com
 description: "JSON Binding for EMF (Eclipse Modeling Framework)."
 baseurl: ""
@@ -9,6 +9,7 @@ github_username:  ghillairet
 # Build settings
 markdown: kramdown
 permalink: pretty
+highlighter: pygments
 sass:
     style: :compressed
     sass_dir: _sass

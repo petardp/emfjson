@@ -1,9 +1,7 @@
 ---
-layout: default
-title: Documentation
+layout: page
+title: Usage
 ---
-
-# Usage
 
 This short tutorial shows how to use a JsResource to serialize, deserialize EMF models in JSON format. This
 requires that you are already familiar with the concept of Resource in EMF. Follow this tutorial if you are not
@@ -13,14 +11,14 @@ familiar to [EMF](http://www.vogella.de/articles/EclipseEMF/article.html).
 
 To serialize objects in json using emfjson, simply register the json extension to the resource factroy registry, as follow:
 
-<pre><code>
+{% highlight java %}
 ResourceSet resourceSet = new ResourceSetImpl();
 Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("json", new JsResourceFactoryImpl());
-</code></pre>
+{% endhighlight %}
 
 Then create an object and add it to a resource. Give the resource a URI that will be path to the resulting json file.
 
-<pre><code>
+{% highlight java %}
 Resource resource = resourceSet.createResource(URI.createURI("model.json"));
 Map<String, Object> options = new HashMap<String, Object>();
 options.put(EMFJs.OPTION_INDENT_OUTPUT, true);
@@ -36,11 +34,11 @@ aShelf.getItems().add(aBook);
 
 resource.getContents().add(aShelf);
 resource.save(options);
-</code></pre>
+{% endhighlight %}
 
 The resulting file ```model.json``` will then contain the following JSON object:
 
-<pre><code>
+{% highlight javascript %}
 {
   "name" : "My Shelf",
   "items" : [ {
@@ -48,11 +46,11 @@ The resulting file ```model.json``` will then contain the following JSON object:
     "numPages" : 739
   } ]
 }
-</code></pre>
+{% endhighlight %}
 
 Setting the option ```OPTION_SERIALIZE_TYPE``` to true will result in the following JSON:
 
-<pre><code>
+{% highlight javascript %}
 {
   "eClass" : "http://www.eclipselabs.org/examples/library#//LibraryShelf",
   "name" : "My Shelf",
@@ -62,28 +60,28 @@ Setting the option ```OPTION_SERIALIZE_TYPE``` to true will result in the follow
     "numPages" : 739
   } ]
 }
-</code></pre>
+{% endhighlight %}
 
 ## Deserialization
 
 To load objects from json, you also need to register the correct resource factory, as previously described. You also
 need to indicate the type of the root objects you want to obtain from the json data. This is done via a Map.
 
-<pre><code>
+{% highlight java %}
 Map<String, Object> options = new HashMap<String, Object>();
 options.put(EMFJs.OPTION_ROOT_ELEMENT, ModelPackage.eINSTANCE.getUser());
-</code></pre>
+{% endhighlight %}
 
 Then load the EMF resource with those options.
 
-<pre><code>
+{% highlight java %}
 Resource resource = resourceSet.createResource(uri("file:/in.json"));
 resource.load(options);
-</code></pre>
+{% endhighlight %}
 
 The resource should now contain the objects.
 
-<pre><code>
+{% highlight java %}
 User user = (User)resource.getContents().get(0);
-</code></pre>
+{% endhighlight %}
 

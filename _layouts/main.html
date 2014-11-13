@@ -1,0 +1,31 @@
+---
+layout: default
+title: emfjson
+---
+
+<section>
+    <div class="wrap">
+        <div class="hero-test">
+            <div class="hero-text">
+                <h1>{{ page.intro.title }}</h1>
+                <p> {{ page.intro.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="wrap">
+         <div class="hero-example">
+             {% for feature in page.features %}
+             <div class="box">
+                 <h2>{{ feature.title }}</h2>
+                 <p>{{ feature.description }}</p>
+                 <a>More...</a>
+             </div>
+             {% endfor %}
+         </div>
+    </div>
+</section>
+
+
