@@ -2,9 +2,13 @@
 layout: default
 ---
 
-<aside>
-    Menu
-</aside>
+<div class="menu">
+    {% for menu in page.menus %}
+    <div>
+        <a href="#{{menu.title}}">{{menu.title}}</a>
+    </div>
+    {% endfor %}
+</div>
 
 <section style="background-color: #fff; color: black; text-shadow: 0 0 0">
 

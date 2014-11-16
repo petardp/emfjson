@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Usage
+menus:
+    -
+        title: Serialization
 ---
 
 This short tutorial shows how to use a JsResource to serialize, deserialize EMF models in JSON format. This
