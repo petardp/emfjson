@@ -7,9 +7,8 @@ url: "http://www.emfjson.org"
 github_username:  ghillairet
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+    extensions: ["with_toc_data"]
 permalink: pretty
 highlighter: pygments
-sass:
-    style: :compressed
-    sass_dir: _sass

@@ -3,29 +3,52 @@ layout: default
 title: emfjson
 ---
 
-<section>
-    <div class="wrap">
-        <div class="hero-test">
-            <div class="hero-text">
-                <h1>{{ page.intro.title }}</h1>
-                <p> {{ page.intro.description }}</p>
+<div class="section hero site-hero">
+    <div class="container">
+        <div class="header">
+            <div class="row">
+                <div class="eight columns offset-by-two shadow-text">
+                    <h1>{{ page.intro.title }}</h1>
+                    <p class="hero-heading">
+                        {{ page.intro.description }}
+                    </p>
+                    <a class="button">Download</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ten columns offset-by-one">
+                    {% highlight json %}
+                    {{ page.sample }}
+                    {% endhighlight %}
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<section class="features">
-    <div class="wrap">
-         <div class="hero-example">
-             {% for feature in page.features %}
-             <div class="box">
-                 <h2>{{ feature.title }}</h2>
-                 <p>{{ feature.description }}</p>
-                 <a>More...</a>
-             </div>
-             {% endfor %}
-         </div>
+<div class="section values">
+    <div class="container">
+        <div class="row">
+            {% for feature in page.features-one %}
+                <div class="one-third column value">
+                    <h2 class="value-heading">{{ feature.title }}</h2>
+                    <p class="value=description">{{ feature.description }}</p>
+                    <a>More...</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for feature in page.features-second %}
+                <div class="one-third column value">
+                    <h2 class="value-heading">{{ feature.title }}</h2>
+                    <p class="value=description">{{ feature.description }}</p>
+                    <a>More...</a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</section>
+</div>
+
+{% include footer.html %}
 
 

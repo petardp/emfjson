@@ -1,0 +1,50 @@
+body {
+    font-family: Lato, "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
+    padding: 0px;
+    margin: 0px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+}
+
+.shadow-text {
+    text-shadow: rgba(0, 0, 0, 0.498039) 0px 1px 3px;
+}
+
+.site-hero {
+    color: rgb(238, 238, 238);
+    background: #27ae60;
+}
+
+.site-hero > .container {
+    padding: 40px;
+}
+
+.site-hero > .container > .header > .row:nth-child(1) {
+    text-align: center;
+}
+
+.main {
+    padding-top: 60px;
+    overflow: auto;
+}
+
+.values {
+    box-shadow: 0px 8px 8px -8px #133C1F inset;
+}
+
+.values > .container {
+    padding: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: #27ae60;
+}
+
+.button {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+    text-shadow: 0 0;
+}
