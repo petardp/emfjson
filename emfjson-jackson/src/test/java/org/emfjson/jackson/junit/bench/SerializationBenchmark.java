@@ -24,29 +24,36 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.junit.model.ModelPackage;
+import org.emfjson.jackson.module.EMFModule2;
 import org.emfjson.jackson.resource.JsonResourceFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SerializationBenchmark {
 
-	int times = 100;
+	int times = 50;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JsonProcessingException {
 		SerializationBenchmark b =  new SerializationBenchmark();
 		// first
 		System.out.println("--- 1st benchmarck ---");
-		b.benchmarkSerializeXmi(Benchmarks.first());
-		b.benchmarkSerializeBinary(Benchmarks.first());
+//		b.benchmarkSerializeXmi(Benchmarks.first());
+//		b.benchmarkSerializeBinary(Benchmarks.first());
 		b.benchmarkSerializeJson(Benchmarks.first());
+		b.benchmarkSerializeJson2(Benchmarks.first());
 		// second
 		System.out.println("--- 2nd benchmarck ---");
-		b.benchmarkSerializeXmi(Benchmarks.second());
-		b.benchmarkSerializeBinary(Benchmarks.second());
+//		b.benchmarkSerializeXmi(Benchmarks.second());
+//		b.benchmarkSerializeBinary(Benchmarks.second());
 		b.benchmarkSerializeJson(Benchmarks.second());
+		b.benchmarkSerializeJson2(Benchmarks.second());
 		// third
 		System.out.println("--- 3rd benchmarck ---");
-		b.benchmarkSerializeXmi(Benchmarks.third());
-		b.benchmarkSerializeBinary(Benchmarks.third());
-		b.benchmarkSerializeJson(Benchmarks.third());
+//		b.benchmarkSerializeXmi(Benchmarks.third());
+//		b.benchmarkSerializeBinary(Benchmarks.third());
+//		b.benchmarkSerializeJson(Benchmarks.third());
+//		b.benchmarkSerializeJson2(Benchmarks.third());
 	}
 
 	private long performSave(Resource resource, Map<String, Object> options) {
@@ -56,6 +63,18 @@ public class SerializationBenchmark {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return System.currentTimeMillis() - start;
+	}
+	
+	private long performSave2(Resource resource) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		EMFModule2 m = new EMFModule2();
+		mapper.registerModule(m);
+
+		long start = System.currentTimeMillis();
+
+		mapper.writeValueAsBytes(resource.getContents().get(0));
+
 		return System.currentTimeMillis() - start;
 	}
 
@@ -117,6 +136,20 @@ public class SerializationBenchmark {
 
 		long average = sum / times;
 		System.out.println("JSON: " + average / 1000.);
+	}
+	
+	public void benchmarkSerializeJson2(EObject container) throws JsonProcessingException {
+		long sum = 0;
+		for (int i = 0; i < times; i++) {
+			ResourceSet resourceSet = new ResourceSetImpl();
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new JsonResourceFactory());
+			resourceSet.getPackageRegistry().put(ModelPackage.eNS_URI, ModelPackage.eINSTANCE);
+			Resource resource = resourceSet.createResource(URI.createURI("bench1-model.json"));
+			resource.getContents().add(container);
+			sum += performSave2(resource);
+		}
+		long average = sum / times;
+		System.out.println("JSON2: " + average / 1000.);
 	}
 
 }

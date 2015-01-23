@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emfjson.common.Options;
 import org.emfjson.jackson.resource.JsonResource;
+import org.emfjson.jackson.streaming.References.RefAsValueWriter;
 import org.emfjson.jackson.streaming.StreamReader;
 import org.emfjson.jackson.streaming.StreamWriter;
 
@@ -41,6 +42,8 @@ public class EMFModule extends SimpleModule {
 	private static final long serialVersionUID = 1L;
 	
 	private final Options options;
+
+	private RefAsValueWriter refWriter;
 
 	public EMFModule() {
 		this(Collections.emptyMap());
@@ -73,10 +76,13 @@ public class EMFModule extends SimpleModule {
 
 		@Override
 		public void serialize(EObject value, JsonGenerator jgen, SerializerProvider provider) 
-				throws IOException, JsonProcessingException {
+				throws IOException {
 
-			StreamWriter writer = new StreamWriter(options);
-			configure(writer);
+			final StreamWriter writer = new StreamWriter(options);
+
+			if (refWriter != null) {
+				writer.setRefWriter(refWriter);
+			}
 
 			if (value instanceof Resource) {
 				writer.generate(jgen, (Resource) value);
@@ -95,7 +101,7 @@ public class EMFModule extends SimpleModule {
 
 		@Override
 		public void serialize(Resource value, JsonGenerator jgen, SerializerProvider provider) 
-				throws IOException, JsonProcessingException {
+				throws IOException {
 
 			StreamWriter writer = new StreamWriter(options);
 			configure(writer);
@@ -148,6 +154,10 @@ public class EMFModule extends SimpleModule {
 		public Class<?> handledType() {
 			return Resource.class;
 		}
+	}
+
+	public void setRefWriter(RefAsValueWriter refWriter) {
+		this.refWriter = refWriter;
 	}
 
 }

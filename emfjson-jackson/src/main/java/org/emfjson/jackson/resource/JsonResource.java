@@ -19,16 +19,23 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emfjson.common.Options;
+import org.emfjson.jackson.module.EMFModule2;
 import org.emfjson.jackson.streaming.StreamReader;
 import org.emfjson.jackson.streaming.StreamWriter;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * A Resource implementation that read and write it's content in JSON.
  */
 public class JsonResource extends AbstractUuidResource {
+
+	private final ObjectMapper mapper = new ObjectMapper();
+	{
+		mapper.registerModule(new EMFModule2());
+	}
 
 	public JsonResource() {
 		super();
@@ -68,6 +75,9 @@ public class JsonResource extends AbstractUuidResource {
 		if (outputStream instanceof URIConverter.Saveable) {
 			((URIConverter.Saveable) outputStream).saveResource(this);
 		} else {
+//			byte[] bytes = mapper.writeValueAsBytes(this.getContents().get(0));
+//			outputStream.write(bytes);
+
 			StreamWriter writer = new StreamWriter(Options.from(options).build());
 			configure(writer);
 
