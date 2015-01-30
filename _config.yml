@@ -12,3 +12,5 @@ redcarpet:
     extensions: ["with_toc_data"]
 permalink: pretty
 highlighter: pygments
+sass:
+    sass_dir: _sass

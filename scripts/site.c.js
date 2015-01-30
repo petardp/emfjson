@@ -1,50 +1,99 @@
-window.onload = function() {
+var MenuItem = React.createClass({displayName: "MenuItem",
 
-    var menuEl = document.getElementById('menu');
-    var h = document.querySelectorAll('h1, h2, h3');
-
-    var MenuItem = React.createClass({displayName: "MenuItem",
-
-        render: function() {
-            return (
-                React.createElement("div", null, 
-                    React.createElement("div", null, 
-                        React.createElement("i", null)
-                    ), 
-                    React.createElement("div", {className: this.props.className}, 
-                        React.createElement("a", {href: this.props.id}, this.props.label)
-                    )
-                )
-            )
+    getInitialState: function() {
+        return {
+            collapsed: true
         }
+    },
 
-    })
+    handleClick: function() {
+        this.setState({
+            collapsed: !this.state.collapsed
+        })
+    },
 
-    var Menu = React.createClass({displayName: "Menu",
+    render: function() {
+        var item = this.props.item;
+        var style = item.children.length ?
+            (this.state.collapsed ?
+                "icon-right-dir" :
+                "icon-down-dir") : 'empty';
 
-        render: function() {
-            console.log(this.props);
-            return (
-                React.createElement("div", null, 
+        var className = 'menu-h' + item.type;
+        var children = this.state.collapsed ? [] : item.children;
+
+        return (
+            React.createElement("div", {className: "menu-node"}, 
+                React.createElement("div", {onClick: this.handleClick}, 
+                    React.createElement("i", {className: style})
+                ), 
+                React.createElement("div", {className: className}, 
+                    React.createElement("a", {href: '#' + item.id}, item.label)
+                ), 
                 
-                    this.props.items.map(function(item) {
-                        return React.createElement(MenuItem, {id: item.id, label: item.innerHTML});
+                    children.map(function(i) {
+                        return React.createElement(MenuItem, {key: i.id, item: i})
                     })
                 
-                )
             )
+        )
+    }
+})
+
+var Menu = React.createClass({displayName: "Menu",
+
+    render: function() {
+        return (
+            React.createElement("div", null, 
+            
+                this.props.items.map(function(item) {
+                    return React.createElement(MenuItem, {key: item.id, item: item})
+                })
+            
+            )
+        )
+    }
+})
+
+function parent(current, previous) {
+    if (!previous) return null;
+
+    if (previous.type < current.type)
+        return previous;
+    else if (previous.type === current.type)
+        return previous.parent;
+    else return previous.parent.parent;
+}
+
+function createItems(nodes) {
+    var node, current, previous, result = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        node = nodes[i];
+
+        current = {
+            type: parseInt(node.nodeName.slice(1), 10),
+            id: node.id,
+            label: node.innerHTML,
+            children: []
+        }
+        current.parent = parent(current, previous);
+
+        if (current.parent) {
+            current.parent.children.push(current);
+        } else {
+            result.push(current);
         }
 
-    })
-
-    function menuClass(el) {
-        var nodeName = el.nodeName;
-
-        if (nodeName === 'H1') return 'menu-h1';
-        if (nodeName === 'H2') return 'menu-h2';
-        return 'menu-h3';
+        previous = current;
     }
 
-    console.log(h, menuEl);
-    React.render(React.createElement(Menu, {items: _.toArray(h)}), menuEl);
+    return result;
+}
+
+window.onload = function() {
+    var menuEl = document.getElementById('menu');
+    var nodes = _.toArray(document.querySelectorAll('h1, h2, h3'));
+
+    React.render(React.createElement(Menu, {items: createItems(nodes)}), menuEl);
 }

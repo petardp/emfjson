@@ -21,6 +21,9 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new EMFModule());
 ```
 
+### Extensions
+
+
 ## GWT
 
 
@@ -170,7 +173,7 @@ Multi value containment:
 }
 ```
 
-### Inner document references
+### Inner References
 
 
 References are represented as a JSON object containing a key ```$ref```. In the case of an inner document reference, the value of
@@ -213,7 +216,7 @@ Multi value references are represented by JSON object in an array:
 }
 ```
 
-### Cross document references
+### Cross References
 
 Single value reference:
 
@@ -231,8 +234,4 @@ Single value reference:
     }
 }
 ```
-
-## Customize JSON
-
-
 
