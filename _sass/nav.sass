@@ -13,6 +13,7 @@ label
 .nav
   position: relative
   float: right
+  margin-right: 20px
 
   a,
   label
@@ -29,6 +30,15 @@ label
       padding: 0 5px
       text-align: center
       cursor: pointer
+      a
+        &:hover
+          color: whitesmoke
+
+        i
+          color: $white
+          font-size: 22px
+          &:hover
+            color: whitesmoke
 
 @media screen and (max-width: 44em)
   .nav
