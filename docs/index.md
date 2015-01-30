@@ -9,23 +9,144 @@ In this section, we will introducd the basic usage of EMFJson with the EMF API a
 
 ## EMF
 
+To use EMFJson with the EMF API, simply add the JsonResourceFactory to a ResourceSet Factory map.
+
 ```java
-Resource ....
+ResourceSet resourceSet = new ResourceSetImpl();
+resourceSet.getResourceFactoryRegistry()
+	.getExtensionToFactoryMap()
+	.put("*", new JsonResourceFactory());
+```
+
+Create a Resource and add an object to it.
+
+```java
+Resource resource = resourceSet.createResource(URI.createURI("test"));
+EPackage p = EcoreFactory.eINSTANCE.createEPackage();
+resource.getContents().add(p);
+```
+
+Save it's content.
+
+```java		
+resource.save(System.out, null);
+```
+
+The output will be:
+
+```json
+{
+  "eClass" : "http://www.eclipse.org/emf/2002/Ecore#//EPackage"
+}
 ```
 
 ## Jackson
 
+EMFJson provides a Jackson Module that can be used to serialize and deserialize EMF 
+Models as JSON with the Jackson API.
+
+To use it, register the EMF module with a ObjectMapper.
 
 ```java
 ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new EMFModule());
 ```
 
+You can now convert a Resource into a JsonNode
+
+```java
+JsonNode node = mapper.valueToTree(resource)
+```
+
+Write the content of a resource
+
+```java
+mapper.writeValueAsString(resource);
+```
+
+Or read JSON data into an EObject or a Resource
+
+```java
+String data = "{\"eClass\":\"http://www.eclipse.org/emf/2002/Ecore#//EPackage\"}";
+
+EPackage p = (EPackage) mapper.readValue(data, EObject.class);
+
+Resource r = mapper.readValue(data, Resource.class);
+```
+
 ### Extensions
+
+```
+TODO
+```
 
 
 ## GWT
 
+Add the dependency to EMFJson in your GWT module.
+
+```xml
+<inherits name="org.emfjson.gwt.EMFJs" />
+```
+
+You can now use EMFJson in a GWT client via the EMF API.
+
+```java
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emfjson.gwt.resource.JsonResourceFactory;
+
+...
+
+ResourceSet resourceSet = new ResourceSetImpl();
+resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI,EcorePackage.eINSTANCE);
+resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
+    "*",
+    new JsonResourceFactory());
+```
+
+The difference with the standard EMF API, is that on GWT you will have to use the 
+save and load methods with a callback parameter.
+
+To save a resource on the client.
+
+```java
+import org.eclipse.emf.common.util.Callback;
+import org.eclipse.emf.ecore.resource.Resource;
+
+...
+
+resource.save(null, new Callback<Resource>() {
+    @Override
+    public void onFailure(Throwable caught) {
+        GWT.log(caught.getMessage());
+    }
+    @Override
+    public void onSuccess(Resource result) {
+        Window.alert("Successfully saved");
+    }
+});
+```
+
+To load a resource on the client.
+
+```java
+import org.eclipse.emf.common.util.Callback;
+import org.eclipse.emf.ecore.resource.Resource;
+
+...
+
+resource.load(null, new Callback<Resource>() {
+    @Override
+    public void onFailure(Throwable caught) {
+        GWT.log(caught.getMessage());
+    }
+    @Override
+    public void onSuccess(Resource result) {
+        Window.alert("Successfully loaded");
+    }
+});
+```
 
 # JSON Format
 
