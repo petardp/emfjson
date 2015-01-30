@@ -37,22 +37,11 @@ public class EObjectSerializer extends JsonSerializer<EObject> implements Resolv
 		}
 
 		for (EReference reference: cache.getReferences(eClass)) {
-//			if (EObjects.isCandidate(object, reference) && reference.isContainment()) {
+			if (EObjects.isCandidate(object, reference)) {
 				Object value = object.eGet(reference);
 				generator.writeFieldName(ModelUtil.getElementName(reference));
 				generator.writeObject(value);
-
-//				if (reference.isMany()) {
-//					Collection<?> values = (Collection<?>) value;
-//					generator.writeStartArray();
-//					for (Object current: values) {
-//						generator.writeObject(current);
-//					}
-//					generator.writeEndArray();
-//				} else {
-//					generator.writeObject(value);
-//				}
-//			}
+			}
 		}
 
 		generator.writeEndObject();
