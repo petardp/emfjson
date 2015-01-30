@@ -2,8 +2,8 @@
 title: emfjson
 email: g.hillairet@gmail.com
 description: "JSON Binding for EMF (Eclipse Modeling Framework)."
-baseurl: ""
-url: "http://www.emfjson.org"
+baseurl: "https://ghillairet.github.io/emfjson"
+url: "https://ghillairet.github.io/emfjson"
 github_username:  ghillairet
 
 # Build settings
