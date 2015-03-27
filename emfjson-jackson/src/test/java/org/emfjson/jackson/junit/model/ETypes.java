@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEString <em>EString</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEStrings <em>EStrings</em>}</li>
@@ -58,7 +59,6 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getEShort <em>EShort</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.ETypes#getUris <em>Uris</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

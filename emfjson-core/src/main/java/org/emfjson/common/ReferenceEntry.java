@@ -28,14 +28,18 @@ public class ReferenceEntry {
 		this.id = id;
 	}
 
-	public void resolve(ResourceSet resourceSet, Options options) {
+	public void resolve(ResourceSet resourceSet, Cache cache) {
 		final URI ref = createURIFromID(owner.eResource(), id);
 
 		EObject target;
 		if (ref == null) {
-			target = owner.eResource().getEObject(id);
+			if(owner.eResource() == null) {
+				target = cache.getEObject(id);
+			} else {
+				target = owner.eResource().getEObject(id);
+			}
 		} else {
-			target = resourceSet.getEObject(ref, options.resolveProxy);
+			target = resourceSet.getEObject(ref, true);
 		}
 
 		if (target != null) {

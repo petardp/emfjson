@@ -11,7 +11,7 @@
 package org.emfjson.gwt.junit.support;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.Constants.EJS_ID_FIELD;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class UuidTestSupport extends GWTTestCase {
 	}
 
 	protected String uuid(JSONObject node) {
-		return node.get(EJS_UUID_ANNOTATION).isString().stringValue();
+		return node.get(EJS_ID_FIELD).isString().stringValue();
 	}
 	
 	protected Resource createUuidResource(String name) {

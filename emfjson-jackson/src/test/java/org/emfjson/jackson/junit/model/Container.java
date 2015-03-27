@@ -33,10 +33,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.Container#getElements <em>Elements</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

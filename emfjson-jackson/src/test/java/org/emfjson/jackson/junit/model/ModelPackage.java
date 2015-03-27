@@ -141,13 +141,22 @@ public class ModelPackage extends EPackageImpl {
 	public static final int USER__ADDRESS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Unique Friend Resolve</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int USER__UNIQUE_FRIEND_RESOLVE = 7;
+
+	/**
 	 * The number of structural features of the '<em>User</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int USER_FEATURE_COUNT = 7;
+	public static final int USER_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>User</em>' class.
@@ -1290,6 +1299,20 @@ public class ModelPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the reference '{@link org.emfjson.jackson.junit.model.User#getUniqueFriendResolve <em>Unique Friend Resolve</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Unique Friend Resolve</em>'.
+	 * @see org.emfjson.jackson.junit.model.User#getUniqueFriendResolve()
+	 * @see #getUser()
+	 * @generated
+	 */
+	public EReference getUser_UniqueFriendResolve() {
+		return (EReference)userEClass.getEStructuralFeatures().get(7);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link org.emfjson.jackson.junit.model.Address <em>Address</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2237,6 +2260,7 @@ public class ModelPackage extends EPackageImpl {
 		createEReference(userEClass, USER__FRIENDS);
 		createEReference(userEClass, USER__UNIQUE_FRIEND);
 		createEReference(userEClass, USER__ADDRESS);
+		createEReference(userEClass, USER__UNIQUE_FRIEND_RESOLVE);
 
 		addressEClass = createEClass(ADDRESS);
 		createEAttribute(addressEClass, ADDRESS__ADD_ID);
@@ -2364,6 +2388,7 @@ public class ModelPackage extends EPackageImpl {
 		initEReference(getUser_Friends(), this.getUser(), null, "friends", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUser_UniqueFriend(), this.getUser(), null, "uniqueFriend", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getUser_Address(), this.getAddress(), null, "address", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getUser_UniqueFriendResolve(), this.getUser(), null, "uniqueFriendResolve", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(addressEClass, Address.class, "Address", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAddress_AddId(), ecorePackage.getEString(), "addId", null, 0, 1, Address.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2613,6 +2638,14 @@ public class ModelPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference USER__ADDRESS = eINSTANCE.getUser_Address();
+
+		/**
+		 * The meta object literal for the '<em><b>Unique Friend Resolve</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference USER__UNIQUE_FRIEND_RESOLVE = eINSTANCE.getUser_UniqueFriendResolve();
 
 		/**
 		 * The meta object literal for the '{@link org.emfjson.jackson.junit.model.Address <em>Address</em>}' class.

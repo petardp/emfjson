@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.ObjectWithMap#getEntries <em>Entries</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.ObjectWithMap#getDependencies <em>Dependencies</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

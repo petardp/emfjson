@@ -11,7 +11,7 @@
 package org.emfjson.jackson.junit.support;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.Constants.EJS_ID_FIELD;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -31,7 +31,7 @@ public abstract class UuidSupport {
 	}
 
 	protected String uuid(JsonNode node) {
-		return node.get(EJS_UUID_ANNOTATION).asText();
+		return node.get(EJS_ID_FIELD).asText();
 	}
 	
 	protected Resource createUuidResource(String name) {

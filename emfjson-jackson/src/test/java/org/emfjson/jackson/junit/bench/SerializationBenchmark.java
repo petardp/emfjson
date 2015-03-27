@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emfjson.EMFJs;
 import org.emfjson.jackson.junit.model.ModelPackage;
-import org.emfjson.jackson.module.EMFModule2;
+import org.emfjson.jackson.module.EMFModule;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -68,7 +68,7 @@ public class SerializationBenchmark {
 	
 	private long performSave2(Resource resource) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		EMFModule2 m = new EMFModule2();
+		EMFModule m = new EMFModule();
 		mapper.registerModule(m);
 
 		long start = System.currentTimeMillis();

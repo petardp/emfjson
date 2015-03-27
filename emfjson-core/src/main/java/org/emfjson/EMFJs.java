@@ -14,6 +14,7 @@ package org.emfjson;
  * Constants used as options during load/save operations on a Resource.
  */
 public final class EMFJs {
+
 	private EMFJs() {}
 
 	/**

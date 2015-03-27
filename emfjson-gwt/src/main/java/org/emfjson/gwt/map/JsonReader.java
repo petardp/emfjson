@@ -12,7 +12,7 @@ package org.emfjson.gwt.map;
 
 import static org.emfjson.common.Constants.EJS_REF_KEYWORD;
 import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.Constants.EJS_ID_FIELD;
 import static org.emfjson.common.EObjects.createEntry;
 import static org.emfjson.common.EObjects.isMapEntry;
 
@@ -272,8 +272,8 @@ public class JsonReader {
 	private EObject create(EClass eClass, JSONObject node) {
 		EObject object = EcoreUtil.create(eClass);
 
-		if (node.containsKey(EJS_UUID_ANNOTATION)) {
-			JSONString stringValue = node.get(EJS_UUID_ANNOTATION).isString();
+		if (node.containsKey(EJS_ID_FIELD)) {
+			JSONString stringValue = node.get(EJS_ID_FIELD).isString();
 
 			if (stringValue != null && object != null && resource instanceof UuidResource) {
 				((UuidResource) resource).setID(object, stringValue.stringValue());

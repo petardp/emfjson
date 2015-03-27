@@ -28,13 +28,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class Cache {
 
-	private final Map<EObject, String> mapOfID = new HashMap<>();
-	private final Map<EClass, List<EReference>> mapOfReferences = new HashMap<>();
-	private final Map<EClass, List<EAttribute>> mapOfAttributes = new HashMap<>();
-	private final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
+	protected final Map<EObject, String> mapOfID = new HashMap<>();
+	protected final Map<EClass, List<EReference>> mapOfReferences = new HashMap<>();
+	protected final Map<EClass, List<EAttribute>> mapOfAttributes = new HashMap<>();
+	protected final Map<EStructuralFeature, String> mapOfNames = new HashMap<>();
 	protected final Map<String, EClass> mapOfClasses = new HashMap<>();
 	protected final Map<String, URI> mapOfURIs = new HashMap<>();
-	private final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
+	protected final Map<EClass, Map<String, EStructuralFeature>> mapOfFeatures = new HashMap<>();
+	protected final Map<String, EObject> mapOfObjectsById = new HashMap<>();
 
 	public String getKey(EStructuralFeature feature) {
 		String key = mapOfNames.get(feature);
@@ -125,19 +126,39 @@ public class Cache {
 			return key;
 		}
 
-		final URI eObjectURI = EcoreUtil.getURI(object);
-		final String fragment = eObjectURI.fragment();
-		final URI baseURI = eObjectURI.trimFragment().trimQuery();
-
-		if (current != null && baseURI.equals(current.getURI())) {
-			key = fragment;
+		String id = EcoreUtil.getID(object);
+		if (id != null) {
+			key = id;
 		} else {
-			key = eObjectURI.toString();
+			final URI eObjectURI = EcoreUtil.getURI(object);
+			final URI baseURI = eObjectURI.trimFragment().trimQuery();
+			final String fragment = eObjectURI.fragment();
+
+			if ((baseURI != null && !baseURI.hasAuthority())) {
+				key = fragment;
+			}
+			else if (object.eResource() != null && object.eResource() != current) {
+				key = eObjectURI.toString();
+			} else {
+				if (baseURI.isEmpty() || current == null || (current != null && baseURI.equals(current.getURI()))) {
+					key = fragment;
+				} else {
+					key = eObjectURI.toString();
+				}
+			}
 		}
 
 		mapOfID.put(object, key);
 
 		return key;
+	}
+
+    public void put(String id, EObject object) {
+    	mapOfObjectsById.put(id, object);
+    }
+
+	public EObject getEObject(String id) {
+		return mapOfObjectsById.get(id);
 	}
 
 }

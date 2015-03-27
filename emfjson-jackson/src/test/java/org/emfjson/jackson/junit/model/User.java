@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.EObjectEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.User#getUserId <em>User Id</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.User#getName <em>Name</em>}</li>
@@ -43,8 +44,8 @@ import org.eclipse.emf.ecore.util.EObjectEList;
  *   <li>{@link org.emfjson.jackson.junit.model.User#getFriends <em>Friends</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.User#getUniqueFriend <em>Unique Friend</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.User#getAddress <em>Address</em>}</li>
+ *   <li>{@link org.emfjson.jackson.junit.model.User#getUniqueFriendResolve <em>Unique Friend Resolve</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -158,6 +159,16 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	 * @ordered
 	 */
 	protected Address address;
+
+	/**
+	 * The cached value of the '{@link #getUniqueFriendResolve() <em>Unique Friend Resolve</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUniqueFriendResolve()
+	 * @generated
+	 * @ordered
+	 */
+	protected User uniqueFriendResolve;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -432,6 +443,54 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Unique Friend Resolve</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Unique Friend Resolve</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Unique Friend Resolve</em>' reference.
+	 * @see #setUniqueFriendResolve(User)
+	 * @generated
+	 */
+	public User getUniqueFriendResolve() {
+		if (uniqueFriendResolve != null && uniqueFriendResolve.eIsProxy()) {
+			InternalEObject oldUniqueFriendResolve = (InternalEObject)uniqueFriendResolve;
+			uniqueFriendResolve = (User)eResolveProxy(oldUniqueFriendResolve);
+			if (uniqueFriendResolve != oldUniqueFriendResolve) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.USER__UNIQUE_FRIEND_RESOLVE, oldUniqueFriendResolve, uniqueFriendResolve));
+			}
+		}
+		return uniqueFriendResolve;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User basicGetUniqueFriendResolve() {
+		return uniqueFriendResolve;
+	}
+
+	/**
+	 * Sets the value of the '{@link org.emfjson.jackson.junit.model.User#getUniqueFriendResolve <em>Unique Friend Resolve</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Unique Friend Resolve</em>' reference.
+	 * @see #getUniqueFriendResolve()
+	 * @generated
+	 */
+	public void setUniqueFriendResolve(User newUniqueFriendResolve) {
+		User oldUniqueFriendResolve = uniqueFriendResolve;
+		uniqueFriendResolve = newUniqueFriendResolve;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.USER__UNIQUE_FRIEND_RESOLVE, oldUniqueFriendResolve, uniqueFriendResolve));
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -468,6 +527,9 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 			case ModelPackage.USER__ADDRESS:
 				if (resolve) return getAddress();
 				return basicGetAddress();
+			case ModelPackage.USER__UNIQUE_FRIEND_RESOLVE:
+				if (resolve) return getUniqueFriendResolve();
+				return basicGetUniqueFriendResolve();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -503,6 +565,9 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 			case ModelPackage.USER__ADDRESS:
 				setAddress((Address)newValue);
 				return;
+			case ModelPackage.USER__UNIQUE_FRIEND_RESOLVE:
+				setUniqueFriendResolve((User)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -536,6 +601,9 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 			case ModelPackage.USER__ADDRESS:
 				setAddress((Address)null);
 				return;
+			case ModelPackage.USER__UNIQUE_FRIEND_RESOLVE:
+				setUniqueFriendResolve((User)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -562,6 +630,8 @@ public class User extends MinimalEObjectImpl.Container implements EObject {
 				return uniqueFriend != null;
 			case ModelPackage.USER__ADDRESS:
 				return address != null;
+			case ModelPackage.USER__UNIQUE_FRIEND_RESOLVE:
+				return uniqueFriendResolve != null;
 		}
 		return super.eIsSet(featureID);
 	}

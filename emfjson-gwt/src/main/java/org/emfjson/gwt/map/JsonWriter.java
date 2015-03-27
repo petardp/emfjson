@@ -12,7 +12,7 @@ package org.emfjson.gwt.map;
 
 import static org.eclipse.emf.ecore.util.EcoreUtil.getURI;
 import static org.emfjson.common.Constants.EJS_TYPE_KEYWORD;
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.Constants.EJS_ID_FIELD;
 import static org.emfjson.common.EObjects.featureMaps;
 import static org.emfjson.common.EObjects.isCandidate;
 import static org.emfjson.common.EObjects.isContainmentProxy;
@@ -74,7 +74,7 @@ public class JsonWriter {
 		if (object.eResource() instanceof UuidResource) {
 			String id = ((UuidResource) object.eResource()).getID(object);
 			if (id != null) {
-				node.put(EJS_UUID_ANNOTATION, new JSONString(id));
+				node.put(EJS_ID_FIELD, new JSONString(id));
 			}
 		}
 

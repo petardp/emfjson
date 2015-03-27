@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.AbstractType#getName <em>Name</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.AbstractType#getRefProperty <em>Ref Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

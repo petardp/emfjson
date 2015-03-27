@@ -10,7 +10,7 @@
  */
 package org.emfjson.gwt.junit.tests;
 
-import static org.emfjson.common.Constants.EJS_UUID_ANNOTATION;
+import static org.emfjson.common.Constants.EJS_ID_FIELD;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class GwtTestUuidSave extends UuidTestSupport {
 
 		assertNotNull(node);
 		assertNotNull(node.isObject());
-		assertNotNull(node.isObject().get(EJS_UUID_ANNOTATION));
+		assertNotNull(node.isObject().get(EJS_ID_FIELD));
 		assertEquals(uuid(root), uuid(node.isObject()));
 	}
 	
@@ -67,7 +67,7 @@ public class GwtTestUuidSave extends UuidTestSupport {
 
 		assertNotNull(node);
 		assertNotNull(node.isObject());
-		assertNotNull(node.isObject().get(EJS_UUID_ANNOTATION));
+		assertNotNull(node.isObject().get(EJS_ID_FIELD));
 		assertEquals(uuid(root), uuid(node.isObject()));
 
 		assertNotNull(node.isObject().get("elements").isArray());
@@ -78,11 +78,11 @@ public class GwtTestUuidSave extends UuidTestSupport {
 		JSONValue node2 = elements.get(1);
 
 		assertNotNull(node1.isObject());
-		assertNotNull(node1.isObject().get(EJS_UUID_ANNOTATION));
+		assertNotNull(node1.isObject().get(EJS_ID_FIELD));
 		assertEquals(uuid(one), uuid(node1.isObject()));
 
 		assertNotNull(node2.isObject());
-		assertNotNull(node2.isObject().get(EJS_UUID_ANNOTATION));
+		assertNotNull(node2.isObject().get(EJS_ID_FIELD));
 		assertEquals(uuid(two), uuid(node2.isObject()));
 
 		assertNotNull(node1.isObject().get("refProperty"));

@@ -16,6 +16,7 @@
         resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="address" eType="#//Address"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueFriendResolve" eType="#//User"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Sex">
     <eLiterals name="MALE"/>

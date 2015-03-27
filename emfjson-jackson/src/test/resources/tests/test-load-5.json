@@ -1,7 +1,7 @@
 [
 	{
-		"userId": "1", 
-		"name": "Paul", 
+		"userId": "1",
+		"name": "Paul",
 		"friends": [
 			{"$ref" : "#2"},
 			{"$ref" : "#3"}

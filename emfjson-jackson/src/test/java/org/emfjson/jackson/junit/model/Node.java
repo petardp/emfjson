@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.Node#getLabel <em>Label</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.Node#getTarget <em>Target</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.emfjson.jackson.junit.model.Node#getChild <em>Child</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.Node#getUniqueChild <em>Unique Child</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

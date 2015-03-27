@@ -10,19 +10,18 @@
  */
 package org.emfjson.jackson.junit.support;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.fasterxml.jackson.databind.*;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emfjson.EMFJs;
-import org.emfjson.jackson.junit.model.ModelPackage;
-import org.emfjson.jackson.resource.JsonResourceFactory;
-import org.junit.Before;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.emf.ecore.resource.*;
+import org.eclipse.emf.ecore.resource.impl.*;
+import org.emfjson.jackson.junit.model.*;
+import org.emfjson.jackson.module.*;
+import org.emfjson.jackson.resource.*;
+import org.junit.*;
+
+import java.net.*;
+import java.util.*;
 
 public abstract class TestSupport {
 
@@ -30,8 +29,9 @@ public abstract class TestSupport {
 	protected URI baseTestFilesFileDirectory = URI.createFileURI(testURI.getFile()).appendSegment("");
 	protected String baseURI = "http://eclipselabs.org/emfjson/tests/";
 
-	protected final Map<String, Object> options = new HashMap<String, Object>();
+	protected final Map<String, Object> options = new HashMap<>();
 	protected ResourceSet resourceSet;
+	protected ObjectMapper mapper = new ObjectMapper();
 
 	@Before
 	public void setUp() {
@@ -41,13 +41,14 @@ public abstract class TestSupport {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new JsonResourceFactory());
 
 		options.clear();
-		options.put(EMFJs.OPTION_INDENT_OUTPUT, false);
 
 		resourceSet = new ResourceSetImpl();		
 		resourceSet.getURIConverter().getURIMap().put(baseURI, baseTestFilesFileDirectory);
+		mapper.registerModule(new EMFModule());
 	}
 
 	protected URI uri(String fileName) {
 		return URI.createURI(baseURI + fileName, true);
 	}
+
 }

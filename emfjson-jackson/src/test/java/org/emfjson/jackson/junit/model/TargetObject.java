@@ -32,11 +32,11 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.TargetObject#getSingleAttribute <em>Single Attribute</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.TargetObject#getArrayAttribute <em>Array Attribute</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

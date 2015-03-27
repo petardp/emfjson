@@ -23,10 +23,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.ConcreteTypeOne#getPropTypeOne <em>Prop Type One</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

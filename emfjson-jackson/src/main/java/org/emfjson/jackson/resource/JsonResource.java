@@ -16,16 +16,15 @@ import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.cfg.*;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.emfjson.common.Options;
-import org.emfjson.jackson.module.EMFModule2;
-import org.emfjson.jackson.streaming.StreamReader;
-import org.emfjson.jackson.streaming.StreamWriter;
+import org.emfjson.jackson.module.EMFModule;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.emfjson.EMFJs.OPTION_ROOT_ELEMENT;
 
 /**
  * A Resource implementation that read and write it's content in JSON.
@@ -33,37 +32,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonResource extends AbstractUuidResource {
 
 	private final ObjectMapper mapper = new ObjectMapper();
-	{
-		mapper.registerModule(new EMFModule2());
-	}
 
 	public JsonResource() {
-		super();
+		this(null);
 	}
 
 	public JsonResource(URI uri) {
 		super(uri);
+		mapper.registerModule(new EMFModule());
 	}
-
-	public void configure(StreamWriter writer) {}
-
-	public void configure(StreamReader reader) {}
 
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
 		if (options == null) {
-			options = Collections.<String, Object> emptyMap();
+			options = Collections.<Object, Object> emptyMap();
 		}
 
 		if (inputStream instanceof URIConverter.Loadable) {
-			((URIConverter.Loadable) inputStream).loadResource(this);
-		} else {
-			StreamReader reader = new StreamReader(Options.from(options).build());
-			configure(reader);
 
-			JsonFactory factory = new JsonFactory();
-			reader.parse(this, factory.createParser(inputStream));
+			((URIConverter.Loadable) inputStream).loadResource(this);
+
+		} else {
+
+			ContextAttributes attributes = ContextAttributes
+					.getEmpty()
+					.withSharedAttribute("resource", this)
+					.withSharedAttribute(OPTION_ROOT_ELEMENT, options.get(OPTION_ROOT_ELEMENT));
+
+			mapper.reader()
+					.with(attributes)
+					.forType(Resource.class)
+					.readValue(inputStream);
+
 		}
+
 	}
 
 	@Override
@@ -75,16 +77,7 @@ public class JsonResource extends AbstractUuidResource {
 		if (outputStream instanceof URIConverter.Saveable) {
 			((URIConverter.Saveable) outputStream).saveResource(this);
 		} else {
-//			byte[] bytes = mapper.writeValueAsBytes(this.getContents().get(0));
-//			outputStream.write(bytes);
-
-			StreamWriter writer = new StreamWriter(Options.from(options).build());
-			configure(writer);
-
-			JsonFactory factory = new JsonFactory();
-			JsonGenerator generator = factory.createGenerator(outputStream);
-			writer.generate(generator, this);
-			generator.close();
+			outputStream.write(mapper.writeValueAsBytes(this));
 		}
 	}
 

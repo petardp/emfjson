@@ -25,13 +25,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.Address#getAddId <em>Add Id</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.Address#getCity <em>City</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.Address#getStreet <em>Street</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.Address#getNumber <em>Number</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

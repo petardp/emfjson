@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.emfjson.jackson.junit.model.PrimaryObject#getName <em>Name</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.PrimaryObject#getIdAttribute <em>Id Attribute</em>}</li>
@@ -60,7 +61,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.emfjson.jackson.junit.model.PrimaryObject#getFeatureMapAttributeCollection <em>Feature Map Attribute Collection</em>}</li>
  *   <li>{@link org.emfjson.jackson.junit.model.PrimaryObject#getKind <em>Kind</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

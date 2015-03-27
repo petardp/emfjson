@@ -10,6 +10,7 @@
  */
 package org.emfjson.common;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -28,21 +29,51 @@ import org.eclipse.emf.ecore.util.FeatureMapUtil;
 
 public class EObjects {
 
+	public static void setOrAdd(EObject owner, EStructuralFeature feature, Object value) {
+		if (feature instanceof EReference) {
+			setOrAdd(owner, (EReference) feature, value);
+		} else if (feature != null) {
+			setOrAdd(owner, (EAttribute) feature, value);
+		}
+	}
+
 	public static void setOrAdd(EObject owner, EReference reference, Object value) {
 		if (value != null) {
 			if (reference.isMany()) {
 				@SuppressWarnings("unchecked")
 				Collection<EObject> values = (Collection<EObject>) owner.eGet(reference);
 				if (values != null && value instanceof EObject) {
-					values.add((EObject) value);
+					try {
+						values.add((EObject) value);
+					} catch (ClassCastException e) {}
 				}
 			} else {
-				owner.eSet(reference, value);
+				try {
+					owner.eSet(reference, value);
+				} catch (ClassCastException e) {}
 			}
 		}
 	}
 
-	public static void setOrAdd(EObject owner, EAttribute attribute, String value) {
+	public static void set(EObject owner, EStructuralFeature feature, Object value) throws IOException {
+		if (owner == null || feature == null)
+			throw new IllegalArgumentException();
+
+		if (value == null) {
+			owner.eSet(feature, value);
+		}
+		else {
+			try {
+				owner.eSet(feature, value);
+			} catch (Exception e) {
+				throw new IOException(e);
+			}
+		}
+	}
+
+	public static void setOrAdd(EObject owner, EAttribute attribute, Object val) {
+		String value = (String) val;
+		
 		if (value != null && !value.trim().isEmpty()) {
 			Object newValue  = EcoreUtil.createFromString(attribute.getEAttributeType(), value);
 
@@ -98,6 +129,26 @@ public class EObjects {
 		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__KEY, key);
 		eObject.eSet(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY__VALUE, value);
 		return eObject;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void addAll(EObject owner, EStructuralFeature feature, Collection<?> value) {
+		if (owner == null || feature == null)
+			throw new IllegalArgumentException();
+		
+		Collection<Object> values = null;
+		try {
+			values = (Collection<Object>) owner.eGet(feature);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+
+		try {
+			values.addAll(value);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
